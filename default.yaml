@@ -1,0 +1,112 @@
+# For easier querying from database
+seed:
+cuda: True
+
+meta:
+  label: None
+  conditions: None
+
+server:
+  name: None
+  gpu_id: None
+
+opt:
+  alpha: 0.99
+  lr: 0.001
+  master_lr_factor: 1.
+  eps: 0.00005
+  max_grad_norm: 0.5
+  use_lr_decay: False #M: True
+
+ppo:
+  clip_param: 0.2
+  ppo_epoch: 10
+  num_mini_batch: 32
+  clip_value_loss: True
+  use_linear_clip_decay: False # True?
+  ppo_loss_type: 'joint' # 'joint' or 'individual'
+
+
+loss:
+  use_gae: False
+  tau: 0.95
+  gamma: 0.95
+  normalize_advt: False  # Only for PPO
+
+  c_r: 1.
+  c_kl_b:
+  c_kl_b_1:
+  c_kl_a:
+  c_kl_a_1:
+  c_ent_b: 0.
+  c_ent_z: 0.
+  c_ent_a: 0.
+
+  value_loss_coef: 0.5
+  action_loss_coef_a: 1.
+  action_loss_coef_z: 1.
+  action_loss_coef_b: 1.
+  prior_loss_coef: 1.
+  entropy_loss_coef_0: 0.1
+  entropy_loss_coef_1: 0.02
+  entropy_loss_coef_test: 0.05
+  elc_a:
+  elc_b:
+  elc_z:
+
+  b_distillation: master  # Either 'master' or 'posterior'
+  f_div_function: identity  # Either 'identity' or 'tanh'
+
+architecture:
+  encoder: fc # fc or cnn
+  k_size: 3
+  padding: 0
+  num_options: 1
+  encoder_output_size: 512
+  shared_encoder: True
+
+normalization:
+  ob: False #M: True
+  ret: False #M: True
+
+algorithm: a2c # acktr not implemented # M: ppo
+alpha: 0.95  # For the slow changing prior
+
+num_processes: 36
+num_steps: 5
+num_test_steps: 5
+num_stack: 1
+
+log_interval: 1000
+test_log_interval: 200
+
+num_frames: 4000000
+warmup_period_frames: 36
+final_period_frames: 500000
+testing_frames: 50000
+
+num_env_restarts: 0
+num_simultaneous_restarts: 2
+load_id:
+
+option_init:
+  train_init_params:
+    options: True
+    master: False
+  test_init_params:
+    options: True
+    master: False
+
+freeze_in_test:
+  prior: True
+  option: True # Should be changed for distral
+
+reset_encoder_in_test:
+  option: False # Could be made true for distral for better comparison
+  master: True  # Should be true, otherwise we get weird results because it's shared with option
+
+environment: "MyTaxi2A-v1"
+tasks: "['R-G','R-Y','R-B','G-R','G-Y','G-B','B-Y','B-R','B-G','Y-R','Y-G','Y-B']"
+test_tasks: "['R-G-hard','R-Y-hard','R-B-hard','G-R-hard','G-Y-hard','G-B-hard','B-Y-hard','B-R-hard','B-G-hard','Y-R-hard','Y-G-hard','Y-B-hard']"
+save_dir: './trained_models/'
+add_timestep: False
