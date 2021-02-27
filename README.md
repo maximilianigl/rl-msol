@@ -1,10 +1,6 @@
 Repository for "Multitask Soft Option Learning" by Maximilian Igl, Andrew Gambardella, Jinke He,
 Nantas Nardelli, N. Siddharth, Wendelin Böhmer and Shimon Whiteson.
 
-
-WARNING: There have been some breaking changes (e.g. to gym) so currently the code doesn't run as
-is.
-
 Requires openai baselines (https://github.com/openai/baselines) and sacred
 (https://github.com/IDSIA/sacred).
 
