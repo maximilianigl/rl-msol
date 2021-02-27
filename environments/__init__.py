@@ -3,30 +3,30 @@ from gym.envs.registration import register
 
 ################ Taxi ########################
 
-# CNN version
-register(
-    id='MyTaxi-v1',
-    entry_point='environments.taxi:Taxi',
-    max_episode_steps=50,
-    kwargs={'add_action_in_obs': False}
-)
-register(
-    id='MyTaxi-v2',
-    entry_point='environments.taxi:Taxi',
-    max_episode_steps=50,
-    kwargs={'add_action_in_obs': True}
-)
+# CNN version: Removed for consistency between this and the directional version
+# register(
+#     id='MyTaxi-v1',
+#     entry_point='environments.taxi:Taxi',
+#     max_episode_steps=50,
+#     kwargs={'add_action_in_obs': False}
+# )
+# register(
+#     id='MyTaxi-v2',
+#     entry_point='environments.taxi:Taxi',
+#     max_episode_steps=50,
+#     kwargs={'add_action_in_obs': True}
+# )
 
 # FC version
 register(
-    id='MyTaxi-v3',
+    id='MyTaxi-v1',
     entry_point='environments.taxi:Taxi',
     max_episode_steps=50,
     kwargs={'add_action_in_obs': False,
             'image_obs': False}
 )
 register(
-    id='MyTaxi-v4',
+    id='MyTaxi-v2',
     entry_point='environments.taxi:Taxi',
     max_episode_steps=50,
     kwargs={'add_action_in_obs': True,
@@ -35,7 +35,7 @@ register(
 
 # Start everywhere version
 register(
-    id='MyTaxi-v5',
+    id='MyTaxi-v3',
     entry_point='environments.taxi:Taxi',
     max_episode_steps=50,
     kwargs={'add_action_in_obs': False,
@@ -43,7 +43,7 @@ register(
             'image_obs': False}
 )
 register(
-    id='MyTaxi-v6',
+    id='MyTaxi-v4',
     entry_point='environments.taxi:Taxi',
     max_episode_steps=50,
     kwargs={'add_action_in_obs': True,
