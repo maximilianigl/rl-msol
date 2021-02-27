@@ -5,6 +5,12 @@ Nantas Nardelli, N. Siddharth, Wendelin Böhmer and Shimon Whiteson.
 WARNING: There have been some breaking changes (e.g. to gym) so currently the code doesn't run as
 is.
 
+Requires openai baselines (https://github.com/openai/baselines) and sacred
+(https://github.com/IDSIA/sacred).
+
+
+Please also add `cuda=False` if you're running without GPUs.
+
 Running MSOL on Taxi
 ```
 python main.py -p with architecture.num_options=4 loss.c_kl_b=0.02 loss.c_kl_b_1=0.1

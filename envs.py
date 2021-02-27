@@ -23,7 +23,6 @@ try:
 except ImportError:
     pass
 
-from environments import mujoco_env_persistent
 
 def make_env(env_id, seed, rank, add_timestep, save_video=None):
     def _thunk():
@@ -34,11 +33,7 @@ def make_env(env_id, seed, rank, add_timestep, save_video=None):
             env = gym.make(env_id)
         if save_video is not None:
             env = Monitor(env, save_video, force=True)
-        is_persistent = isinstance(env.unwrapped, mujoco_env_persistent.PersistentMujocoEnv)
-        if is_persistent:
-            print('Not seeding env because using a persistent environment')
-        else:
-            env.seed(seed + rank)
+        env.seed(seed + rank)
 
         obs_shape = env.observation_space.shape
         if add_timestep and len(

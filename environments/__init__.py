@@ -92,13 +92,13 @@ register(
 register(
     id='MovementBandits-v0',
     entry_point='environments.movement_bandits:MovementBandits',
-    timestep_limit=50,
+    max_episode_steps=50,
 )
 
 register(
     id='MovementBandits-v2',
     entry_point='environments.movement_bandits:MovementBandits',
-    timestep_limit=50,
+    max_episode_steps=50,
     kwargs={
         'add_action_in_obs': True
     }

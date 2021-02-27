@@ -62,7 +62,7 @@ class RolloutStorage(object):
         self.actions = self.actions.cuda()
 
     def insert(self, current_obs, b, z, action, value_pred,
-               action_log_prob, action_prior_log_prob, z_log_prob, 
+               action_log_prob, action_prior_log_prob, z_log_prob,
                b_log_prob, b_prior_log_prob, reward, mask):
         self.obs[:, self.step + 1].copy_(current_obs)
         self.z[:, self.step + 1].copy_(z)
@@ -87,20 +87,20 @@ class RolloutStorage(object):
         self.obs[:, 0].copy_(self.obs[:, -1])
         self.masks[:, 0].copy_(self.masks[:, -1])
         self.z[:, 0].copy_(self.z[:, -1])
-    
+
     def store_next_value(self, next_value_u):
         self.next_value_u = next_value_u
-    
+
     def get_reg_reward(self, step):
-        kl_b = self.b_prior_log_probs[:,step] - self.b_log_probs[:, step] 
+        kl_b = self.b_prior_log_probs[:,step] - self.b_log_probs[:, step]
 
         if self.loss['f_div_function'] == 'tanh':
             kl_b = torch.tanh(kl_b)
         elif self.loss['f_div_function'] == 'identity':
             pass
-        else: 
+        else:
             raise NotImplementedError("loss['f_div_function'] '{}' not implemented".format(self.loss['f_div_function']))
-        
+
         reg_reward = (self.rewards[:, step] * self.loss['c_r']
                         - self.z_log_probs[:, step] * (self.loss['c_ent_z'])
                         # - self.b_log_probs[:, step] * (self.loss['c_kl_b'] + self.loss['c_ent_b'])
@@ -135,7 +135,7 @@ class RolloutStorage(object):
                 self.returns_z[:, step] = (
                     self.returns_z[:, step + 1] * self.loss['gamma'] * self.masks[:, step + 1] + reg_reward)
 
-    def feed_forward_generator(self, 
+    def feed_forward_generator(self,
                                old_action_log_probs,
                                old_z_log_probs,
                                old_b_log_probs,
@@ -170,7 +170,7 @@ class RolloutStorage(object):
 
             # Policy choices
             actions_batch = self.actions.view(num_tasks, -1, self.actions.size(-1))[:, indices]
-            z_batch_minus_one = self.z[:, :-1].view(num_tasks, -1, 1)[:, indices] 
+            z_batch_minus_one = self.z[:, :-1].view(num_tasks, -1, 1)[:, indices]
             z_batch_plus_one = self.z[:, 1:].view(num_tasks, -1, 1)[:, indices]
             b_batch = self.b.view(num_tasks, -1, 1)[:, indices]
 
@@ -184,8 +184,8 @@ class RolloutStorage(object):
             # Updated advantages
             adv_targ = advantages.view(num_tasks, -1, 1)[:, indices]
 
-            yield (obs_batch, value_preds_batch, returns_z_batch, masks_batch, 
-                   actions_batch, z_batch_minus_one, z_batch_plus_one, b_batch, 
+            yield (obs_batch, value_preds_batch, returns_z_batch, masks_batch,
+                   actions_batch, z_batch_minus_one, z_batch_plus_one, b_batch,
                    old_action_log_probs_batch, old_z_log_probs_batch, old_b_log_probs_batch,
                    adv_targ)
 

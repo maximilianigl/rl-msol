@@ -106,7 +106,7 @@ reset_encoder_in_test:
   master: True  # Should be true, otherwise we get weird results because it's shared with option
 
 environment: "MyTaxi2A-v1"
-tasks: "['R-G','R-Y','R-B','G-R','G-Y','G-B','B-Y','B-R','B-G','Y-R','Y-G','Y-B']"
-test_tasks: "['R-G-hard','R-Y-hard','R-B-hard','G-R-hard','G-Y-hard','G-B-hard','B-Y-hard','B-R-hard','B-G-hard','Y-R-hard','Y-G-hard','Y-B-hard']"
+tasks: ['R-G','R-Y','R-B','G-R','G-Y','G-B','B-Y','B-R','B-G','Y-R','Y-G','Y-B']
+test_tasks: ['R-G-hard','R-Y-hard','R-B-hard','G-R-hard','G-Y-hard','G-B-hard','B-Y-hard','B-R-hard','B-G-hard','Y-R-hard','Y-G-hard','Y-B-hard']
 save_dir: './trained_models/'
 add_timestep: False
