@@ -20,10 +20,10 @@ loss.entropy_loss_coef0=0.05 loss.entropy_loss_coef1=0.05 loss.entropy_loss_ceof
 
 
 # Required Packages
-How I got it to run from scratch on Mac:
+How I got it to run from scratch on Mac (there's also a `pip_freeze.txt`)
 
 ```
-# Use python version 3.6 because gym and baselines relie on old version
+# Use python version 3.6 because gym and baselines rely on old version
 pyenv install 3.6.12 && pyenv global 3.6.12
 pip install sacred gym torch torchvision torchaudio pyyaml
 
