@@ -18,7 +18,7 @@ from envs import make_env, WrapPyTorch
 # from model import Policy
 from hierarchical_policy import HierarchicalPolicy
 from storage import RolloutStorage
-from utils import update_current_obs, getOutputDimension, update_linear_schedule, get_file_id, save_file_from_db, get_docs
+from utils import update_current_obs, getOutputDimension, update_linear_schedule
 
 import algo
 
@@ -26,7 +26,6 @@ import algo
 from sacred import Experiment
 from sacred.utils import apply_backspaces_and_linefeeds
 from sacred.observers import MongoObserver
-import pymongo
 import logging
 from torch.utils import data
 from itertools import islice

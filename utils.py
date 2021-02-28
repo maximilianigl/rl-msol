@@ -2,8 +2,6 @@ import numpy as np
 
 import torch
 import torch.nn as nn
-import pymongo
-import gridfs
 
 # Necessary for my KFAC implementation.
 
@@ -59,34 +57,6 @@ def update_current_obs(obs, current_obs, obs_shape, num_stack, num_tasks, num_pr
         wrong_way[task] = obs[task*num_processes_per_task:(task+1)*num_processes_per_task]
     print(np.array_equal(right_way, wrong_way))
     """
-
-
-def get_docs(url, db, col):
-    client = pymongo.MongoClient(url, ssl=True)
-    return client[db][col]
-
-
-def get_file_id(doc, file_name):
-    """
-    Helper function to access data when MongoObserver is used.
-    Go through all files in doc and return the id of the file with file_name.
-    """
-    r = list(filter(lambda dic: dic['name'] == file_name, doc['artifacts']))
-    assert len(r) == 1
-    return r[0]['file_id']
-
-
-def save_file_from_db(file_id, destination, db_uri, db_name):
-    """
-    Given a file_id (e.g. through get_file_id()) and a db_uri (a db connection string),
-    save the corresponding file to `destination` (filename as string).
-    """
-    client = pymongo.MongoClient(db_uri, ssl=True)
-    fs = gridfs.GridFSBucket(client[db_name])
-    open_file = open(destination, 'wb+')
-    fs.download_to_stream(file_id, open_file)
-
-# %%
 
 
 def getOutputDimension(dimension, k_size, padding, stride):

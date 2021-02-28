@@ -8,7 +8,6 @@ is.
 Requires openai baselines (https://github.com/openai/baselines) and sacred
 (https://github.com/IDSIA/sacred).
 
-
 Please also add `cuda=False` if you're running without GPUs.
 
 Running MSOL on Taxi
@@ -24,3 +23,22 @@ loss.entropy_loss_coef0=0.05 loss.entropy_loss_coef1=0.05 loss.entropy_loss_ceof
 
 
 
+# Required Packages
+How I got it to run from scratch on Mac:
+
+```
+# Use python version 3.6 because gym and baselines relie on old version
+pyenv install 3.6.12 && pyenv global 3.6.12
+pip install sacred gym torch torchvision torchaudio pyyaml
+
+
+# Install Openai Baselines (see https://github.com/openai/baselines)
+brew install cmake openmpi
+pip install tensorflow==1.14
+
+git clone https://github.com/openai/baselines.git && cd baselines
+pip install -e .
+cd ..
+
+git clone git@github.com:maximilianigl/rl-msol.git && cd rl-msol
+```
